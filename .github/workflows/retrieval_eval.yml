@@ -1,0 +1,57 @@
+name: retrieval-eval
+
+on:
+  push:
+    branches: [ "master", "main" ]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 2 * * *"   # daily 02:00 UTC
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      EVAL_K: "20"
+      MIN_HIT: "0.85"
+      MIN_RECALL: "0.85"
+      MIN_MRR: "0.60"
+
+      AZURE_SEARCH_ENDPOINT: ${{ secrets.AZURE_SEARCH_ENDPOINT }}
+      AZURE_SEARCH_API_KEY: ${{ secrets.AZURE_SEARCH_API_KEY }}
+      AZURE_SEARCH_INDEX_NAME: ${{ secrets.AZURE_SEARCH_INDEX_NAME }}
+
+      AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
+      AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
+      AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run retrieval evaluation
+        run: |
+          python -m scripts.eval_retrieval
+
+      - name: Gate on thresholds
+        run: |
+          python scripts/check_eval_thresholds.py
+
+      - name: Upload eval artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-artifacts
+          path: |
+            data/eval/report.json
+            data/eval/retrieval_details.json
