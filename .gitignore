@@ -1,47 +1,44 @@
-# Python-generated files
+# ----------------------------
+# Secrets / env
+# ----------------------------
+.env
+.env.*
+*.env
+!.env.example
+
+# ----------------------------
 # Python
+# ----------------------------
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
+*.pyc
 *.egg-info/
 dist/
 build/
 .venv/
 venv/
+.ipynb_checkpoints/
 
-# Env + secrets
-.env
-.env.*
-!.env.example
-
-# OS
+# ----------------------------
+# OS / logs
+# ----------------------------
 .DS_Store
 Thumbs.db
-
-# Logs
 *.log
 logs/
 
-# MLflow local artifacts (if you use local store)
+# ----------------------------
+# MLflow local artifacts
+# ----------------------------
 mlruns/
 
-# Data
-data/landing/*
-data/quarantine/*
-data/staging/*
-data/curated/*
-!data/landing/.gitkeep
-!data/quarantine/.gitkeep
-!data/staging/.gitkeep
-!data/curated/.gitkeep
-!data/golden/.gitkeep
-# Never commit PDFs or pipeline artifacts
-data/pdf/**
-data/landing/*
-data/quarantine/*
-data/staging/*
-data/curated/*
-
-# Keep folder placeholders
+# ----------------------------
+# Data: never commit generated data or PDFs
+# Keep ONLY eval ground-truth + folder placeholders
+# ----------------------------
+data/**
+!data/eval/
+!data/eval/queries.jsonl
 !data/**/.gitkeep
