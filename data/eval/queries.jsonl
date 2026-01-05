@@ -1,0 +1,5 @@
+{"q":"What is self-attention?","relevant":["Attention Is All You Need - 2017 (1706.03762).pdf|4","Attention Is All You Need - 2017 (1706.03762).pdf|6"]}
+{"q":"What is multi-head attention?","relevant":["Attention Is All You Need - 2017 (1706.03762).pdf|4","Attention Is All You Need - 2017 (1706.03762).pdf|5"]}
+{"q":"What is scaled dot-product attention?","relevant":["Attention Is All You Need - 2017 (1706.03762).pdf|4"]}
+{"q":"Why does self-attention help with long-range dependencies?","relevant":["Attention Is All You Need - 2017 (1706.03762).pdf|2","Attention Is All You Need - 2017 (1706.03762).pdf|6"]}
+{"q":"What are the advantages of Transformers over RNNs?","relevant":["Attention Is All You Need - 2017 (1706.03762).pdf|2","Attention Is All You Need - 2017 (1706.03762).pdf|6"]}
