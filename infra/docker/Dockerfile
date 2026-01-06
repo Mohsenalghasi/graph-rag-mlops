@@ -2,21 +2,17 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# System deps (minimal)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
- && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/*
 
-COPY pyproject.toml /app/pyproject.toml
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install deps (simple approach)
-RUN pip install --no-cache-dir -U pip \
- && pip install --no-cache-dir .
+COPY . .
 
-COPY . /app
-
-ENV APP_ENV=container
-ENV PYTHONUNBUFFERED=1
+ENV APP_ENV=prod
+ENV APP_PORT=8000
 
 EXPOSE 8000
 

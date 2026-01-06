@@ -3,7 +3,11 @@ import os
 from functools import lru_cache
 from typing import List
 
+from dotenv import load_dotenv
 from openai import AzureOpenAI
+
+load_dotenv()
+
 
 
 def _get_client() -> AzureOpenAI:
